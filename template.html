@@ -35,11 +35,17 @@
 
       <nav aria-label="Пагинация по книгам">
         <ul class="pagination justify-content-center mt-4">
+          <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
+            <a class="page-link" href="{% if current_page == 1 %}#{% else %}/pages/index{{ current_page - 1 }}.html{% endif %}">Назад</a>
+          </li>
           {% for page_number in page_numbers %}
           <li class="page-item {% if page_number == current_page %}active{% endif %}">
             <a class="page-link" href="/pages/index{{ page_number }}.html">{{ page_number }}</a>
           </li>
           {% endfor %}
+          <li class="page-item {% if current_page == pages_count %}disabled{% endif %}">
+            <a class="page-link" href="{% if current_page == pages_count %}#{% else %}/pages/index{{ current_page + 1 }}.html{% endif %}">Вперёд</a>
+          </li>
         </ul>
       </nav>
     </main>

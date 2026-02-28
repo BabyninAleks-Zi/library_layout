@@ -1,5 +1,6 @@
 import json
 import os
+import math
 from livereload import Server
 from more_itertools import chunked
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -19,6 +20,7 @@ def on_reload():
     with open("meta_data.json", "r", encoding="utf-8") as my_file:
         books = json.load(my_file)
 
+    pages_count = math.ceil(len(books) / BOOKS_ON_PAGE)
     books_pages = list(chunked(books, BOOKS_ON_PAGE))
     os.makedirs("pages", exist_ok=True)
 
@@ -27,7 +29,8 @@ def on_reload():
         rendered_page = template.render(
             books_by_row=books_by_row,
             current_page=page_number,
-            page_numbers=range(1, len(books_pages) + 1),
+            pages_count=pages_count,
+            page_numbers=range(1, pages_count + 1),
         )
 
         output_path = os.path.join("pages", f"index{page_number}.html")
