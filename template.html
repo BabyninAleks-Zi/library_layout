@@ -10,25 +10,19 @@
     <main class="container py-4">
       <h1 class="mb-4">Каталог книг</h1>
 
-      {% for books_row in books_by_row %}
-      <div class="row">
-        {% for book in books_row %}
-        <div class="col-6">
-          <div class="card mb-3 h-100">
-            <div class="row g-0">
-              <div class="col-md-3 p-2">
-                <img src="{{ book.img_src }}" class="img-fluid rounded-start" alt="{{ book.title }}">
-              </div>
-              <div class="col-md-9">
-                <div class="card-body">
-                  <h5 class="card-title">{{ book.title }}</h5>
-                  <p class="card-text mb-0">Автор: {{ book.author }}</p>
-                </div>
-              </div>
+      {% for book in books %}
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-2 p-2">
+            <img src="{{ book.img_src }}" class="img-fluid rounded-start" alt="{{ book.title }}">
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <h5 class="card-title">{{ book.title }}</h5>
+              <p class="card-text mb-0">Автор: {{ book.author }}</p>
             </div>
           </div>
         </div>
-        {% endfor %}
       </div>
       {% endfor %}
     </main>
