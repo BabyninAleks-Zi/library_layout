@@ -9,6 +9,22 @@
   <body>
     <main class="container py-4">
       <h1 class="mb-4">Каталог книг</h1>
+      <nav aria-label="Пагинация по книгам" class="mb-4">
+        <ul class="pagination justify-content-center mb-0">
+          <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
+            <a class="page-link" href="{% if current_page == 1 %}#{% else %}/pages/index{{ current_page - 1 }}.html{% endif %}">Назад</a>
+          </li>
+          {% for page_number in page_numbers %}
+          <li class="page-item {% if page_number == current_page %}active{% endif %}">
+            <a class="page-link" href="/pages/index{{ page_number }}.html">{{ page_number }}</a>
+          </li>
+          {% endfor %}
+          <li class="page-item {% if current_page == pages_count %}disabled{% endif %}">
+            <a class="page-link" href="{% if current_page == pages_count %}#{% else %}/pages/index{{ current_page + 1 }}.html{% endif %}">Вперёд</a>
+          </li>
+        </ul>
+      </nav>
+      <hr class="mt-0 mb-4 border-secondary-subtle">
 
       {% for books_row in books_by_row %}
       <div class="row">
@@ -23,6 +39,14 @@
                 <div class="card-body">
                   <h5 class="card-title">{{ book.title }}</h5>
                   <p class="card-text mb-0">Автор: {{ book.author }}</p>
+                  <p class="mt-2 mb-2">
+                    {% for genre in book["genres"].split(",") %}
+                    {% set genre_name = genre|trim|trim(".") %}
+                    {% if genre_name %}
+                    <span class="badge text-bg-secondary">{{ genre_name }}</span>
+                    {% endif %}
+                    {% endfor %}
+                  </p>
                   <a href="/{{ book.book_path }}" target="_blank" rel="noopener noreferrer">Читать книгу</a>
                 </div>
               </div>
@@ -32,22 +56,6 @@
         {% endfor %}
       </div>
       {% endfor %}
-
-      <nav aria-label="Пагинация по книгам">
-        <ul class="pagination justify-content-center mt-4">
-          <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
-            <a class="page-link" href="{% if current_page == 1 %}#{% else %}/pages/index{{ current_page - 1 }}.html{% endif %}">Назад</a>
-          </li>
-          {% for page_number in page_numbers %}
-          <li class="page-item {% if page_number == current_page %}active{% endif %}">
-            <a class="page-link" href="/pages/index{{ page_number }}.html">{{ page_number }}</a>
-          </li>
-          {% endfor %}
-          <li class="page-item {% if current_page == pages_count %}disabled{% endif %}">
-            <a class="page-link" href="{% if current_page == pages_count %}#{% else %}/pages/index{{ current_page + 1 }}.html{% endif %}">Вперёд</a>
-          </li>
-        </ul>
-      </nav>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
