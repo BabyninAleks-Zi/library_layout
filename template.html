@@ -17,13 +17,13 @@
           <div class="card mb-3 h-100">
             <div class="row g-0">
               <div class="col-md-3 p-2">
-                <img src="{{ book.img_src }}" class="img-fluid rounded-start" alt="{{ book.title }}">
+                <img src="../{{ book.img_src }}" class="img-fluid rounded-start" alt="{{ book.title }}">
               </div>
               <div class="col-md-9">
                 <div class="card-body">
                   <h5 class="card-title">{{ book.title }}</h5>
                   <p class="card-text mb-0">Автор: {{ book.author }}</p>
-                  <a href="{{ book.book_path }}" target="_blank" rel="noopener noreferrer">Читать книгу</a>
+                  <a href="../{{ book.book_path }}" target="_blank" rel="noopener noreferrer">Читать книгу</a>
                 </div>
               </div>
             </div>
@@ -32,6 +32,16 @@
         {% endfor %}
       </div>
       {% endfor %}
+
+      <nav aria-label="Пагинация по книгам">
+        <ul class="pagination justify-content-center mt-4">
+          {% for page_number in page_numbers %}
+          <li class="page-item {% if page_number == current_page %}active{% endif %}">
+            <a class="page-link" href="index{{ page_number }}.html">{{ page_number }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </nav>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
