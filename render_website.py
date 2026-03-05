@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 import math
@@ -15,16 +16,21 @@ PAGES_DIR = "pages"
 DEFAULT_PAGE = "pages/index1.html"
 
 
-def create_environment():
-    return Environment(
-        loader=FileSystemLoader("."),
-        autoescape=select_autoescape(["html", "xml"]),
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Генерируйте статические страницы для каталога книг.",
     )
+    parser.add_argument(
+        "--metadata-path",
+        default=METADATA_PATH,
+        help=f"Путь к JSON-файлу с библиотекой книг (default: {METADATA_PATH}).",
+    )
+    return parser.parse_args()
 
 
-def on_reload(env):
+def on_reload(env, metadata_path):
     template = env.get_template(TEMPLATE_PATH)
-    with open(METADATA_PATH, "r", encoding="utf-8") as my_file:
+    with open(metadata_path, "r", encoding="utf-8") as my_file:
         books = json.load(my_file)
 
     pages_count = math.ceil(len(books) / BOOKS_ON_PAGE)
@@ -46,17 +52,18 @@ def on_reload(env):
 
 
 def main():
+    args = parse_args()
     env = Environment(
         loader=FileSystemLoader("."),
         autoescape=select_autoescape(["html", "xml"]),
     )
-    reload_pages = partial(on_reload, env)
+    reload_pages = partial(on_reload, env, args.metadata_path)
 
     reload_pages()
 
     server = Server()
     server.watch(TEMPLATE_PATH, reload_pages)
-    server.watch(METADATA_PATH, reload_pages)
+    server.watch(args.metadata_path, reload_pages)
     server.serve(root=".", default_filename=DEFAULT_PAGE)
 
 
