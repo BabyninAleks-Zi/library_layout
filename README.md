@@ -7,7 +7,7 @@
 
 ## Опубликованный сайт
 
-https://babyninaleks-zi.github.io/library_layout/
+https://babyninaleks-zi.github.io/library_layout/pages/index1.html
 
 ## Запуск
 
@@ -17,3 +17,12 @@ https://babyninaleks-zi.github.io/library_layout/
    `python render_website.py`
 3. Открыть:
    `http://127.0.0.1:5500/`
+
+## Открыть без запуска сервера (просто через браузер)
+
+1. Скачайте проект и распакуйте у себя на ПК.
+2. Откройте папку проекта:
+   `С:\.....\library_layout`
+2. Зайдите в папку `pages`.
+3. Откройте файл `index1.html` двойным кликом.
+4. Дальше листайте страницы кнопками "Вперёд/Назад" или по номерам страниц.

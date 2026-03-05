@@ -34,7 +34,7 @@
               <div class="card mb-3 h-100">
                 <div class="row g-0">
                   <div class="col-md-3 p-2">
-                    <img src="../static/{{ book.img_src }}" class="img-fluid rounded-start" alt="{{ book.title }}">
+                    <img src="../static/{{ book.img_src|urlquote }}" class="img-fluid rounded-start" alt="{{ book.title }}">
                   </div>
                   <div class="col-md-9">
                     <div class="card-body">
@@ -48,7 +48,7 @@
                           {% endif %}
                         {% endfor %}
                       </p>
-                      <a href="../static/{{ book.book_path }}" target="_blank" rel="noopener noreferrer">Читать книгу</a>
+                      <a href="../static/{{ book.book_path|urlquote }}" target="_blank" rel="noopener noreferrer">Читать книгу</a>
                     </div>
                   </div>
                 </div>

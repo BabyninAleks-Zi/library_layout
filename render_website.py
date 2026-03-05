@@ -3,6 +3,7 @@ import json
 import os
 import math
 from functools import partial
+from urllib.parse import quote
 from livereload import Server
 from more_itertools import chunked
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -13,7 +14,20 @@ BOOKS_IN_ROW = 2
 TEMPLATE_PATH = "template.html"
 METADATA_PATH = "meta_data.json"
 PAGES_DIR = "pages"
-DEFAULT_PAGE = "pages/index1.html"
+DEFAULT_PAGE = "index.html"
+
+
+def quote_url_path(path):
+    return quote(str(path), safe="/")
+
+
+def create_environment():
+    env = Environment(
+        loader=FileSystemLoader("."),
+        autoescape=select_autoescape(["html", "xml"]),
+    )
+    env.filters["urlquote"] = quote_url_path
+    return env
 
 
 def parse_args():
@@ -53,10 +67,7 @@ def on_reload(env, metadata_path):
 
 def main():
     args = parse_args()
-    env = Environment(
-        loader=FileSystemLoader("."),
-        autoescape=select_autoescape(["html", "xml"]),
-    )
+    env = create_environment()
     reload_pages = partial(on_reload, env, args.metadata_path)
 
     reload_pages()
@@ -69,3 +80,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
