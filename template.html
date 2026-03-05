@@ -16,9 +16,9 @@
             <a class="page-link" href="{% if current_page == 1 %}#{% else %}index{{ current_page - 1 }}.html{% endif %}">Назад</a>
           </li>
           {% for page_number in page_numbers %}
-          <li class="page-item {% if page_number == current_page %}active{% endif %}">
-            <a class="page-link" href="index{{ page_number }}.html">{{ page_number }}</a>
-          </li>
+            <li class="page-item {% if page_number == current_page %}active{% endif %}">
+              <a class="page-link" href="index{{ page_number }}.html">{{ page_number }}</a>
+            </li>
           {% endfor %}
           <li class="page-item {% if current_page == pages_count %}disabled{% endif %}">
             <a class="page-link" href="{% if current_page == pages_count %}#{% else %}index{{ current_page + 1 }}.html{% endif %}">Вперёд</a>
@@ -28,34 +28,34 @@
       <hr class="mt-0 mb-4 border-secondary-subtle">
 
       {% for books_row in books_by_row %}
-      <div class="row">
-        {% for book in books_row %}
-        <div class="col-6">
-          <div class="card mb-3 h-100">
-            <div class="row g-0">
-              <div class="col-md-3 p-2">
-                <img src="../static/{{ book.img_src }}" class="img-fluid rounded-start" alt="{{ book.title }}">
-              </div>
-              <div class="col-md-9">
-                <div class="card-body">
-                  <h5 class="card-title">{{ book.title }}</h5>
-                  <p class="card-text mb-0">Автор: {{ book.author }}</p>
-                  <p class="mt-2 mb-2">
-                    {% for genre in book["genres"].split(",") %}
-                    {% set genre_name = genre|trim|trim(".") %}
-                    {% if genre_name %}
-                    <span class="badge text-bg-secondary">{{ genre_name }}</span>
-                    {% endif %}
-                    {% endfor %}
-                  </p>
-                  <a href="../static/{{ book.book_path }}" target="_blank" rel="noopener noreferrer">Читать книгу</a>
+        <div class="row">
+          {% for book in books_row %}
+            <div class="col-6">
+              <div class="card mb-3 h-100">
+                <div class="row g-0">
+                  <div class="col-md-3 p-2">
+                    <img src="../static/{{ book.img_src }}" class="img-fluid rounded-start" alt="{{ book.title }}">
+                  </div>
+                  <div class="col-md-9">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ book.title }}</h5>
+                      <p class="card-text mb-0">Автор: {{ book.author }}</p>
+                      <p class="mt-2 mb-2">
+                        {% for genre in book["genres"].split(",") %}
+                          {% set genre_name = genre|trim|trim(".") %}
+                          {% if genre_name %}
+                            <span class="badge text-bg-secondary">{{ genre_name }}</span>
+                          {% endif %}
+                        {% endfor %}
+                      </p>
+                      <a href="../static/{{ book.book_path }}" target="_blank" rel="noopener noreferrer">Читать книгу</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-      </div>
       {% endfor %}
     </main>
 
