@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Library Layout</title>
-    <link rel="icon" href="../static/img/nopic.gif" type="image/gif">
+    <link rel="icon" href="../media/img/nopic.gif" type="image/gif">
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
@@ -34,7 +34,7 @@
               <div class="card mb-3 h-100">
                 <div class="row g-0">
                   <div class="col-md-3 p-2">
-                    <img src="../static/{{ book.img_src|urlquote }}" class="img-fluid rounded-start" alt="{{ book.title }}">
+                    <img src="../media/{{ book.img_src|urlquote }}" class="img-fluid rounded-start" alt="{{ book.title }}">
                   </div>
                   <div class="col-md-9">
                     <div class="card-body">
@@ -43,12 +43,12 @@
                       <p class="mt-2 mb-2">
                         {% for genre in book["genres"].split(",") %}
                           {% set genre_name = genre|trim|trim(".") %}
-                          {% if genre_name %}
-                            <span class="badge text-bg-secondary">{{ genre_name }}</span>
-                          {% endif %}
+                            {% if genre_name %}
+                              <span class="badge text-bg-secondary">{{ genre_name }}</span>
+                            {% endif %}
                         {% endfor %}
                       </p>
-                      <a href="../static/{{ book.book_path|urlquote }}" target="_blank" rel="noopener noreferrer">Читать книгу</a>
+                      <a href="../media/{{ book.book_path|urlquote }}" target="_blank" rel="noopener noreferrer">Читать книгу</a>
                     </div>
                   </div>
                 </div>
@@ -62,3 +62,4 @@
     <script src="../static/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+

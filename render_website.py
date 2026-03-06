@@ -25,6 +25,8 @@ def create_environment():
     env = Environment(
         loader=FileSystemLoader("."),
         autoescape=select_autoescape(["html", "xml"]),
+        trim_blocks=True,
+        lstrip_blocks=True,
     )
     env.filters["urlquote"] = quote_url_path
     return env
@@ -75,7 +77,7 @@ def main():
     server = Server()
     server.watch(TEMPLATE_PATH, reload_pages)
     server.watch(args.metadata_path, reload_pages)
-    server.serve(root=".", default_filename=DEFAULT_PAGE)
+    server.serve(root=".", default_filename=DEFAULT_PAGE, port=8000)
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ https://babyninaleks-zi.github.io/library_layout/pages/index1.html
 2. Сгенерировать страницы:
    `python render_website.py`
 3. Открыть:
-   `http://127.0.0.1:5500/`
+   `http://127.0.0.1:8000`
 
 ## Открыть без запуска сервера (просто через браузер)
 
